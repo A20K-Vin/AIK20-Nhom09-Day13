@@ -57,7 +57,7 @@
 
 ### Nguyen Hoang Khai Minh
 - [TASKS_COMPLETED]: Logging & PII
-- [EVIDENCE_LINK]: (Link to specific commit or PR)
+- [EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/495c7a580189fa6e1ff301040327ec3395e47f48 
 
 ### [MEMBER_B_NAME]
 - [TASKS_COMPLETED]: 
