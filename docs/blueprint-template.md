@@ -38,7 +38,7 @@
 ### 3.2 Dashboard & SLOs
 - \[DASHBOARD_6_PANELS_SCREENSHOT]: 
 screenshot\EVIDENCE_DASHBOARD.png
-screenshot\EVIDENCE_TEST_10_REQUEST.png
+screenshot\EVIDENCE_DASHBOARD_COST.png
 - \[SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
@@ -47,8 +47,8 @@ screenshot\EVIDENCE_TEST_10_REQUEST.png
 | Cost Budget | < $2.5/day | 1d | $0.098685|
 
 ### 3.3 Alerts & Runbook
-- \[ALERT_RULES_SCREENSHOT]: [Path to image]
-- \[SAMPLE_RUNBOOK_LINK]: [docs/alerts.md#L...]
+- \[ALERT_RULES_SCREENSHOT]: screenshot\ALERT_RULES_SCREENSHOT.png
+- \[SAMPLE_RUNBOOK_LINK]: docs/alerts.md#1-high-latency-p95
 
 ---
 
@@ -88,9 +88,10 @@ screenshot\EVIDENCE_TEST_10_REQUEST.png
 - \[TASKS_COMPLETED]: 
 - \[EVIDENCE_LINK]: 
 
-### [MEMBER_C_NAME]
-- \[TASKS_COMPLETED]: 
-- \[EVIDENCE_LINK]: 
+### Nguyễn Thị Diệu Linh
+- \[TASKS_COMPLETED]: SLO + alerts
+- \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/a081278cb6f8c06f933dd15fdb93d090db7fa07d
+https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/10ac7f3baf60a3021515735df279fbe25a3ace7b
 
 ### Nguyễn Hoàng Duy
 - \[TASKS_COMPLETED]: Load test (concurrency 1 & 5), inject 3 incidents (rag_slow / cost_spike / tool_fail), ghi nhận kết quả và viết incident response report
