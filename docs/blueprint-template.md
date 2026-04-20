@@ -24,13 +24,15 @@
 ## 3. Technical Evidence (Group)
 
 ### 3.1 Logging & Tracing
-- \[EVIDENCE_CORRELATION_ID_SCREENSHOT]: screenshot/EVIDENCE_CORRELATION_ID_SCREENSHOT.png
-- \[EVIDENCE_PII_REDACTION_SCREENSHOT]: screenshot/EVIDENCE_PII_REDACTION_SCREENSHOT.png
+- \[EVIDENCE_CORRELATION_ID_SCREENSHOT]: screenshot/EVIDENCE_JSON_LOG.png
+- \[EVIDENCE_PII_REDACTION_SCREENSHOT]: screenshot/EVIDENCE_PII.png
 - \[EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: screenshot/EVIDENCE_LANGFUSE_TRACE_LIST.png
 - \[TRACE_WATERFALL_EXPLANATION]: Span `retrieve_documents` trong trace chiếm phần lớn thời gian khi bật incident `rag_slow` (khoảng 2500ms), trong khi các span khác gần như ổn định; điều này xác nhận bottleneck nằm ở bước RAG retrieval.
 
 ### 3.2 Dashboard & SLOs
-- \[DASHBOARD_6_PANELS_SCREENSHOT]: screenshot/EVIDENCE_DASHBOARD.png
+- \[DASHBOARD_6_PANELS_SCREENSHOT]: 
+screenshot\EVIDENCE_DASHBOARD.png
+screenshot\EVIDENCE_DASHBOARD_COST.png
 - \[SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
@@ -39,7 +41,7 @@
 | Cost Budget | < $2.5/day | 1d | $0.098685|
 
 ### 3.3 Alerts & Runbook
-- \[ALERT_RULES_SCREENSHOT]: screenshot/EVIDENCE_SCENARIO.png
+- \[ALERT_RULES_SCREENSHOT]: screenshot\ALERT_RULES_SCREENSHOT.png
 - \[SAMPLE_RUNBOOK_LINK]: docs/alerts.md#1-high-latency-p95
 
 ---
@@ -78,8 +80,9 @@
 - \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/9b8a98bb1e46f7c4581b5f5caf733b1f7cc3b445
 
 ### Nguyễn Thị Diệu Linh
-- \[TASKS_COMPLETED]: Thiết lập SLO table, alert rules và cập nhật output liên quan dashboard/observability
-- \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/6917191
+- \[TASKS_COMPLETED]: SLO + alerts
+- \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/a081278cb6f8c06f933dd15fdb93d090db7fa07d
+https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/10ac7f3baf60a3021515735df279fbe25a3ace7b
 
 ### Nguyễn Hoàng Duy
 - \[TASKS_COMPLETED]: Load test (concurrency 1 & 5), inject 3 incidents (rag_slow / cost_spike / tool_fail), ghi nhận kết quả và viết incident response report
