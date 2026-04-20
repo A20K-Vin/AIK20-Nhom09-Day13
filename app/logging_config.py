@@ -36,24 +36,41 @@ def scrub_event(_: Any, __: str, event_dict: dict[str, Any]) -> dict[str, Any]:
 
 
 def configure_logging() -> None:
-    logging.basicConfig(format="%(message)s", level=getattr(logging, os.getenv("LOG_LEVEL", "INFO")))
+    # Thiết lập cơ bản cho thư viện logging tiêu chuẩn của Python
+    logging.basicConfig(
+        format="%(message)s", 
+        level=getattr(logging, os.getenv("LOG_LEVEL", "INFO"))
+    )
+
     structlog.configure(
         processors=[
+            # 1. Hợp nhất các biến ngữ cảnh (context variables)
             merge_contextvars,
+            
+            # 2. Thêm level (info, error,...) vào event dict
             structlog.processors.add_log_level,
+            
+            # 3. Thêm timestamp chuẩn ISO
             structlog.processors.TimeStamper(fmt="iso", utc=True, key="ts"),
-            # TODO: Register your PII scrubbing processor here
-            # scrub_event,
+            
+            # 4. QUAN TRỌNG: Đăng ký PII scrubbing processor tại đây
+            # Nó nên nằm trước các bước render để dữ liệu nhạy cảm được làm sạch sớm
             scrub_event,
+            
+            # 5. Các trình xử lý lỗi và stack trace
             structlog.processors.StackInfoRenderer(),
             structlog.processors.format_exc_info,
+            
+            # 6. Ghi log vào file .jsonl (custom processor bạn đã viết)
             JsonlFileProcessor(),
+            
+            # 7. Cuối cùng, render ra JSON string để in ra console
             structlog.processors.JSONRenderer(),
         ],
         wrapper_class=structlog.make_filtering_bound_logger(logging.INFO),
+        logger_factory=structlog.PrintLoggerFactory(), # Hoặc structlog.stdlib.LoggerFactory()
         cache_logger_on_first_use=True,
     )
-
 
 
 def get_logger() -> structlog.typing.FilteringBoundLogger:
