@@ -26,34 +26,47 @@ class LabAgent:
     @observe(name="LabAgent.run")
     def run(self, user_id: str, feature: str, session_id: str, message: str) -> AgentResult:
         started = time.perf_counter()
+        user_id_hash = hash_user_id(user_id)
+        query_preview = summarize_text(message)
         docs = retrieve(message)
         prompt = f"Feature={feature}\nDocs={docs}\nQuestion={message}"
         response = self.llm.generate(prompt)
+        answer_preview = summarize_text(response.text)
         quality_score = self._heuristic_quality(message, response.text, docs)
         latency_ms = int((time.perf_counter() - started) * 1000)
         cost_usd = self._estimate_cost(response.usage.input_tokens, response.usage.output_tokens)
 
-        if hasattr(langfuse_context, "update_current_trace"):
+        if hasattr(langfuse_context, "auto_trace"):
+            langfuse_context.auto_trace(
+                user_id_hash=user_id_hash,
+                session_id=session_id,
+                feature=feature,
+                model=self.model,
+                env="app",
+            )
+        elif hasattr(langfuse_context, "update_current_trace"):
             langfuse_context.update_current_trace(
-                user_id=hash_user_id(user_id),
+                user_id=user_id_hash,
                 session_id=session_id,
                 tags=["lab", feature, self.model],
-                metadata={"model": self.model, "feature_type": feature},
+                metadata={"model": self.model, "feature_type": feature, "env": "app"},
             )
 
-        if hasattr(langfuse_context, "update_current_observation"):
+        if hasattr(langfuse_context, "auto_observation"):
+            langfuse_context.auto_observation(
+                query_preview=query_preview,
+                answer_preview=answer_preview,
+                doc_count=len(docs),
+                quality_score=quality_score,
+                tokens_in=response.usage.input_tokens,
+                tokens_out=response.usage.output_tokens,
+            )
+        elif hasattr(langfuse_context, "update_current_observation"):
             langfuse_context.update_current_observation(
-                input=summarize_text(message),
-                output=summarize_text(response.text),
-                metadata={
-                    "doc_count": len(docs),
-                    "query_preview": summarize_text(message),
-                    "quality_score": quality_score,
-                },
-                usage_details={
-                    "input": response.usage.input_tokens,
-                    "output": response.usage.output_tokens,
-                },
+                input=query_preview,
+                output=answer_preview,
+                metadata={"doc_count": len(docs), "query_preview": query_preview, "quality_score": quality_score},
+                usage_details={"input": response.usage.input_tokens, "output": response.usage.output_tokens},
             )
 
         metrics.record_request(

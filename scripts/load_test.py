@@ -6,6 +6,12 @@ from pathlib import Path
 
 import httpx
 
+try:
+    from app.tracing import flush_tracing
+except Exception:
+    def flush_tracing() -> None:
+        return None
+
 BASE_URL = "http://127.0.0.1:8000"
 QUERIES = Path("data/sample_queries.jsonl")
 
@@ -35,6 +41,8 @@ def main() -> None:
         else:
             for line in lines:
                 send_request(client, json.loads(line))
+    flush_tracing()
+    print("Tracing flush completed.")
 
 
 if __name__ == "__main__":
