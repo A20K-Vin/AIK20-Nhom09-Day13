@@ -9,7 +9,7 @@
   - Member A: Nguyen Hoang Khai Minh | Role: Logging & PII
   - Member B: [Name] | Role: Tracing & Enrichment
   - Member C: [Name] | Role: SLO & Alerts
-  - Member D: [Name] | Role: Load Test & Dashboard
+  - Member D: Nguyễn Hoàng Duy | Role: Load Test & Incident Injection
   - Member E: [Name] | Role: Demo & Report
 
 ---
@@ -45,11 +45,11 @@
 ---
 
 ## 4. Incident Response (Group)
-- [SCENARIO_NAME]: (e.g., rag_slow)
-- [SYMPTOMS_OBSERVED]: 
-- [ROOT_CAUSE_PROVED_BY]: (List specific Trace ID or Log Line)
-- [FIX_ACTION]: 
-- [PREVENTIVE_MEASURE]: 
+- [SCENARIO_NAME]: rag_slow
+- [SYMPTOMS_OBSERVED]: Latency tăng đột biến từ ~150ms (bình thường) lên ~5000–8000ms sau khi inject incident. Load test với concurrency 3 cho thấy toàn bộ request vượt 5000ms, vi phạm SLO latency P95 < 3000ms.
+- [ROOT_CAUSE_PROVED_BY]: Log và metrics tại `/metrics` cho thấy `latency_p95_ms` vọt lên ~8000ms. Nguyên nhân gốc: `mock_rag.py` gọi `time.sleep(2.5)` khi `STATE["rag_slow"] = True`, làm RAG span bị delay 2500ms mỗi request. Evidence: screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png
+- [FIX_ACTION]: Chạy `python scripts/inject_incident.py --scenario rag_slow --disable` để tắt incident. Latency trở về ~150–800ms ngay lập tức.
+- [PREVENTIVE_MEASURE]: Alert `high_latency_p95` (trigger `latency_p95_ms > 5000 for 30m`) sẽ notify on-call trước khi SLO breach. Nên thêm timeout cho RAG call và fallback retrieval khi RAG chậm > 1s.
 
 ---
 
@@ -67,9 +67,9 @@
 - [TASKS_COMPLETED]: 
 - [EVIDENCE_LINK]: 
 
-### [MEMBER_D_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
+### Nguyễn Hoàng Duy
+- [TASKS_COMPLETED]: Load test (concurrency 1 & 5), inject 3 incidents (rag_slow / cost_spike / tool_fail), ghi nhận kết quả và viết incident response report
+- [EVIDENCE_LINK]: screenshot/EVIDENCE_LOAD_TEST_NORMAL.png | screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png | screenshot/EVIDENCE_INCIDENT_COST_SPIKE.png | screenshot/EVIDENCE_INCIDENT_TOOL_FAIL.png
 
 ### [MEMBER_E_NAME]
 - [TASKS_COMPLETED]: 
