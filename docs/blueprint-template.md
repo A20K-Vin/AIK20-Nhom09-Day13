@@ -69,7 +69,7 @@
 
 ### Nguyễn Hoàng Duy
 - [TASKS_COMPLETED]: Load test (concurrency 1 & 5), inject 3 incidents (rag_slow / cost_spike / tool_fail), ghi nhận kết quả và viết incident response report
-- [EVIDENCE_LINK]: screenshot/EVIDENCE_LOAD_TEST_NORMAL.png | screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png | screenshot/EVIDENCE_INCIDENT_COST_SPIKE.png | screenshot/EVIDENCE_INCIDENT_TOOL_FAIL.png
+- [EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/80e831e
 
 ### [MEMBER_E_NAME]
 - [TASKS_COMPLETED]: 
