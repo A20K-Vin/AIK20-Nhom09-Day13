@@ -45,11 +45,25 @@
 ---
 
 ## 4. Incident Response (Group)
-- \[SCENARIO_NAME]: rag_slow
-- \[SYMPTOMS_OBSERVED]: Latency tăng đột biến từ ~150ms (bình thường) lên ~5000–8000ms sau khi inject incident. Load test với concurrency 3 cho thấy toàn bộ request vượt 5000ms, vi phạm SLO latency P95 < 3000ms.
-- \[ROOT_CAUSE_PROVED_BY]: Log và metrics tại `/metrics` cho thấy `latency_p95_ms` vọt lên ~8000ms. Nguyên nhân gốc: `mock_rag.py` gọi `time.sleep(2.5)` khi `STATE["rag_slow"] = True`, làm RAG span bị delay 2500ms mỗi request. Evidence: screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png
-- \[FIX_ACTION]: Chạy `python scripts/inject_incident.py --scenario rag_slow --disable` để tắt incident. Latency trở về ~150–800ms ngay lập tức.
-- \[PREVENTIVE_MEASURE]: Alert `high_latency_p95` (trigger `latency_p95_ms > 5000 for 30m`) sẽ notify on-call trước khi SLO breach. Nên thêm timeout cho RAG call và fallback retrieval khi RAG chậm > 1s.
+- \[SCENARIO_NAME]: rag_slow | cost_spike | tool_fail
+
+**Scenario 1 — rag_slow**
+- \[SYMPTOMS_OBSERVED]: Latency tăng đột biến từ ~150ms lên ~5000–8000ms. Toàn bộ request vượt SLO latency P95 < 3000ms.
+- \[ROOT_CAUSE_PROVED_BY]: `mock_rag.py` gọi `time.sleep(2.5)` khi `STATE["rag_slow"] = True`, làm RAG span delay 2500ms mỗi request. Evidence: screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png
+- \[FIX_ACTION]: `python scripts/inject_incident.py --scenario rag_slow --disable` — latency trở về ~150–800ms ngay lập tức.
+- \[PREVENTIVE_MEASURE]: Alert `high_latency_p95` trigger trước khi SLO breach. Thêm timeout cho RAG call và fallback retrieval khi RAG chậm > 1s.
+
+**Scenario 2 — cost_spike**
+- \[SYMPTOMS_OBSERVED]: `output_tokens` tăng gấp 4 lần, cost_usd tăng vọt so với baseline. Metrics `/metrics` cho thấy `avg_cost_usd` bất thường.
+- \[ROOT_CAUSE_PROVED_BY]: `mock_llm.py` nhân `output_tokens *= 4` khi `STATE["cost_spike"] = True`. Evidence: screenshot/EVIDENCE_INCIDENT_COST_SPIKE.png
+- \[FIX_ACTION]: `python scripts/inject_incident.py --scenario cost_spike --disable`.
+- \[PREVENTIVE_MEASURE]: Alert `cost_budget_spike` trigger khi `hourly_cost_usd > 2x_baseline for 15m`. Route request đơn giản sang model rẻ hơn.
+
+**Scenario 3 — tool_fail**
+- \[SYMPTOMS_OBSERVED]: Toàn bộ request trả về HTTP 500, correlation_id = None.
+- \[ROOT_CAUSE_PROVED_BY]: `mock_rag.py` raise `RuntimeError("Vector store timeout")` khi `STATE["tool_fail"] = True`. Evidence: screenshot/EVIDENCE_INCIDENT_TOOL_FAIL.png
+- \[FIX_ACTION]: `python scripts/inject_incident.py --scenario tool_fail --disable`.
+- \[PREVENTIVE_MEASURE]: Alert `high_error_rate` (P1, trigger > 5% for 5m). Thêm retry logic và fallback answer khi RAG tool fail.
 
 ---
 
