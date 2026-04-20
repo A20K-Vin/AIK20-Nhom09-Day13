@@ -9,9 +9,9 @@
 - Alert rules with runbook link
 
 ## Minimal demo screenshots
-- Health PASS page: `http://127.0.0.1:8016/health`
-- Metrics page: `http://127.0.0.1:8016/metrics`
-- After dashboard page: `http://127.0.0.1:8016/demo/after`
+- Health PASS page: `http://127.0.0.1:8017/health`
+- Metrics page: `http://127.0.0.1:8017/metrics`
+- After dashboard page: `http://127.0.0.1:8017/demo/after`
 
 The `/demo/after` page consolidates the dashboard, alert count, incident-after state, validation score, correlation IDs, and PII result into one screenshot.
 
