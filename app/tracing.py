@@ -9,18 +9,31 @@ logger = logging.getLogger(__name__)
 
 F = TypeVar("F", bound=Callable[..., Any])
 
+
+def tracing_enabled() -> bool:
+    has_keys = bool(os.getenv("LANGFUSE_PUBLIC_KEY") and os.getenv("LANGFUSE_SECRET_KEY"))
+    if not _HAS_LANGFUSE and has_keys:
+        logger.warning("Langfuse keys found but 'langfuse' library is not installed.")
+    return _HAS_LANGFUSE and has_keys
+
+
 try:
-    # Langfuse v4.x primary import path.
-    from langfuse import get_client, observe
+    from langfuse import get_client, observe as _langfuse_observe
     _HAS_LANGFUSE = True
 except ImportError:
     _HAS_LANGFUSE = False
     get_client = None
+    _langfuse_observe = None
 
-    def observe(*args: Any, **kwargs: Any):
-        def decorator(func: F) -> F:
-            return func
-        return decorator
+
+def observe(*args: Any, **kwargs: Any):
+    if tracing_enabled() and callable(_langfuse_observe):
+        return _langfuse_observe(*args, **kwargs)
+
+    def decorator(func: F) -> F:
+        return func
+
+    return decorator
 
 
 @lru_cache(maxsize=1)
@@ -105,13 +118,6 @@ class _LangfuseContextAdapter:
 
 
 langfuse_context = _LangfuseContextAdapter()
-
-
-def tracing_enabled() -> bool:
-    has_keys = bool(os.getenv("LANGFUSE_PUBLIC_KEY") and os.getenv("LANGFUSE_SECRET_KEY"))
-    if not _HAS_LANGFUSE and has_keys:
-        logger.warning("Langfuse keys found but 'langfuse' library is not installed.")
-    return _HAS_LANGFUSE and has_keys
 
 
 def flush_tracing() -> None:

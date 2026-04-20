@@ -3,26 +3,20 @@
 > **Instruction**: Fill in all sections below. This report is designed to be parsed by an automated grading assistant. Ensure all tags (e.g., `[GROUP_NAME]`) are preserved.
 
 ## 1. Team Metadata
-<<<<<<< HEAD
 - [GROUP_NAME]: 9
 - [REPO_URL]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13.git
 - [MEMBERS]:
-=======
-- \[GROUP_NAME]: 
-- \[REPO_URL]: 
-- \[MEMBERS]:
->>>>>>> c2f0b43f598250cf190c7fb99ced72279cb9fcfb
-  - Member A: Nguyen Hoang Khai Minh | Role: Logging & PII
-  - Member B: Nguyen Thuy Linh | Role: Tracing & Enrichment
-  - Member C: [Name] | Role: SLO & Alerts
-  - Member D: Nguyễn Hoàng Duy | Role: Load Test & Incident Injection
-  - Member E: [Name] | Role: Demo & Report
+  - Member A: Nguyễn Hoàng Khải Minh - 2A202600159 | Role: Logging & PII
+  - Member B: Nguyễn Thùy Linh - 2A202600216 | Role: Tracing & Enrichment
+  - Member C: Nguyễn Thị Diệu Linh - 2A202600209 | Role: SLO & Alerts
+  - Member D: Nguyễn Hoàng Duy - 2A202600158 | Role: Load Test & Incident Injection
+  - Member E: Nguyễn Triệu Gia Khánh - 2A202600225 | Role: Demo & Report
 
 ---
 
 ## 2. Group Performance (Auto-Verified)
 - \[VALIDATE_LOGS_FINAL_SCORE]: 100/100
-- \[TOTAL_TRACES_COUNT]: 
+- \[TOTAL_TRACES_COUNT]: 10
 - \[PII_LEAKS_FOUND]: 0
 
 ---
@@ -30,15 +24,13 @@
 ## 3. Technical Evidence (Group)
 
 ### 3.1 Logging & Tracing
-- \[EVIDENCE_CORRELATION_ID_SCREENSHOT]: screenshot/EVIDENCE_CORRELATION_ID_SCREENSHOT.PNG
+- \[EVIDENCE_CORRELATION_ID_SCREENSHOT]: screenshot/EVIDENCE_CORRELATION_ID_SCREENSHOT.png
 - \[EVIDENCE_PII_REDACTION_SCREENSHOT]: screenshot/EVIDENCE_PII_REDACTION_SCREENSHOT.png
-- \[EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: [Path to image]
-- \[TRACE_WATERFALL_EXPLANATION]: (Briefly explain one interesting span in your trace)
+- \[EVIDENCE_TRACE_WATERFALL_SCREENSHOT]: screenshot/EVIDENCE_LANGFUSE_TRACE_LIST.png
+- \[TRACE_WATERFALL_EXPLANATION]: Span `retrieve_documents` trong trace chiếm phần lớn thời gian khi bật incident `rag_slow` (khoảng 2500ms), trong khi các span khác gần như ổn định; điều này xác nhận bottleneck nằm ở bước RAG retrieval.
 
 ### 3.2 Dashboard & SLOs
-- \[DASHBOARD_6_PANELS_SCREENSHOT]: 
-screenshot\EVIDENCE_DASHBOARD.png
-screenshot\EVIDENCE_TEST_10_REQUEST.png
+- \[DASHBOARD_6_PANELS_SCREENSHOT]: screenshot/EVIDENCE_DASHBOARD.png
 - \[SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
@@ -47,8 +39,8 @@ screenshot\EVIDENCE_TEST_10_REQUEST.png
 | Cost Budget | < $2.5/day | 1d | $0.098685|
 
 ### 3.3 Alerts & Runbook
-- \[ALERT_RULES_SCREENSHOT]: [Path to image]
-- \[SAMPLE_RUNBOOK_LINK]: [docs/alerts.md#L...]
+- \[ALERT_RULES_SCREENSHOT]: screenshot/EVIDENCE_SCENARIO.png
+- \[SAMPLE_RUNBOOK_LINK]: docs/alerts.md#1-high-latency-p95
 
 ---
 
@@ -77,32 +69,50 @@ screenshot\EVIDENCE_TEST_10_REQUEST.png
 
 ## 5. Individual Contributions & Evidence
 
-### Nguyen Hoang Khai Minh
+### Nguyễn Hoàng Khải Minh
 - \[TASKS_COMPLETED]: Logging & PII
 - \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/495c7a580189fa6e1ff301040327ec3395e47f48 
 
-### Nguyen Thuy Linh
-- [TASKS_COMPLETED]: Tracing & Enrichment
-- [EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/9b8a98bb1e46f7c4581b5f5caf733b1f7cc3b445
-### [MEMBER_B_NAME]
-- \[TASKS_COMPLETED]: 
-- \[EVIDENCE_LINK]: 
+### Nguyễn Thùy Linh
+- \[TASKS_COMPLETED]: Tracing instrumentation, log enrichment và hoàn thiện report nhóm theo template
+- \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/9b8a98bb1e46f7c4581b5f5caf733b1f7cc3b445
 
-### [MEMBER_C_NAME]
-- \[TASKS_COMPLETED]: 
-- \[EVIDENCE_LINK]: 
+### Nguyễn Thị Diệu Linh
+- \[TASKS_COMPLETED]: Thiết lập SLO table, alert rules và cập nhật output liên quan dashboard/observability
+- \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/6917191
 
 ### Nguyễn Hoàng Duy
 - \[TASKS_COMPLETED]: Load test (concurrency 1 & 5), inject 3 incidents (rag_slow / cost_spike / tool_fail), ghi nhận kết quả và viết incident response report
 - \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/ee7fe48
 
-### [MEMBER_E_NAME]
-- \[TASKS_COMPLETED]: 
-- \[EVIDENCE_LINK]: 
+### Nguyễn Triệu Gia Khánh
+- \[TASKS_COMPLETED]: Tổng hợp bằng chứng, chuẩn hóa blueprint report theo rubric, dẫn dắt phần demo flow Metrics -> Traces -> Logs và đối chiếu tiêu chí pass; bổ sung 3 màn hình bonus để chụp trực tiếp trên web gồm Incident before/after fix, Cost comparison before/after optimization và Auto-instrumentation proof.
+
+- \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/c2f0b43
+
+- \[EVIDENCE_SCREENSHOTS]:
+  - Incident before evidence: screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png
+
+  - Incident after fix: screenshot/INCIDENT_AFTER.png
+
+  - Cost comparison before/after optimization: screenshot/COST_COMPARISON_BEFORE-AFTER.png
+
+  - Auto-instrumentation proof: screenshot/AUTO_INSTRUMENTATION_PROOF.png
+  
+- \[DEMO_ROUTES_ADDED]:
+  - `/demo/incident-after`
+  - `/demo/cost-comparison`
+  - `/demo/auto-instrumentation`
 
 ---
 
 ## 6. Bonus Items (Optional)
-- \[BONUS_COST_OPTIMIZATION]: (Description + Evidence)
-- \[BONUS_AUDIT_LOGS]: (Description + Evidence)
-- \[BONUS_CUSTOM_METRIC]: (Description + Evidence)
+- \[BONUS_INCIDENT_BEFORE_AFTER]: Demonstrated incident recovery from `rag_slow` by comparing slow RAG latency before fix with the post-fix healthy state where all incident toggles are disabled. Evidence: screenshot/EVIDENCE_INCIDENT_RAG_SLOW.png and screenshot/INCIDENT_AFTER.png
+
+- \[BONUS_COST_OPTIMIZATION]: Demonstrated cost optimization by comparing the cost spike request (`output_tokens=664`, cost_usd around $0.010059) with the optimized baseline (`output_tokens=164`, cost_usd around $0.002571), showing about 74% per-request cost reduction. Evidence: screenshot/EVIDENCE_INCIDENT_COST_SPIKE.png and screenshot/COST_COMPARISON_BEFORE-AFTER.png
+
+- \[BONUS_AUTO_INSTRUMENTATION]: Proved auto-instrumentation through the `@observe(name="LabAgent.run")` decorator, Langfuse context hooks, correlation ID middleware, structured JSON logs, token usage capture and PII scrubber. Evidence: screenshot/AUTO_INSTRUMENTATION_PROOF.png
+
+- \[BONUS_AUDIT_LOGS]: Not claimed as a separate bonus item; focus was placed on incident recovery, cost optimization and auto-instrumentation proof.
+
+- \[BONUS_CUSTOM_METRIC]: Quality proxy, token totals, cost totals and latency percentiles are exposed in `/metrics` and summarized in the demo pages. Evidence: screenshot/COST_COMPARISON_BEFORE-AFTER.png and screenshot/AUTO_INSTRUMENTATION_PROOF.png
