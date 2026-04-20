@@ -17,10 +17,9 @@ PII_PATTERNS: dict[str, str] = {
     # Mã số thuế (MST) cá nhân/doanh nghiệp: 10 số hoặc 13 số (nếu có chi nhánh)
     "tax_id": r"\b\d{10}(?:-\d{3})?\b",
     
-    # Ngày sinh (Dạng dd/mm/yyyy hoặc dd-mm-yyyy)
-    "dob": r"\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{4})\b"
-
+     "dob": r"\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{4})\b",
     "passport": r"\b[A-Z]\d{7}\b",
+
 
     "license_plate": r"\b\d{2}[A-Z]{1,2}[- ]?\d{3,4}[\.]?\d{2}\b"
 }
