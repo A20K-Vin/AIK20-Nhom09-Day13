@@ -3,11 +3,11 @@
 > **Instruction**: Fill in all sections below. This report is designed to be parsed by an automated grading assistant. Ensure all tags (e.g., `[GROUP_NAME]`) are preserved.
 
 ## 1. Team Metadata
-- [GROUP_NAME]: 
-- [REPO_URL]: 
+- [GROUP_NAME]: 9
+- [REPO_URL]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13.git
 - [MEMBERS]:
   - Member A: Nguyen Hoang Khai Minh | Role: Logging & PII
-  - Member B: [Name] | Role: Tracing & Enrichment
+  - Member B: Nguyen Thuy Linh | Role: Tracing & Enrichment
   - Member C: [Name] | Role: SLO & Alerts
   - Member D: [Name] | Role: Load Test & Dashboard
   - Member E: [Name] | Role: Demo & Report
@@ -59,9 +59,9 @@
 - [TASKS_COMPLETED]: Logging & PII
 - [EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/495c7a580189fa6e1ff301040327ec3395e47f48 
 
-### [MEMBER_B_NAME]
-- [TASKS_COMPLETED]: 
-- [EVIDENCE_LINK]: 
+### Nguyen Thuy Linh
+- [TASKS_COMPLETED]: Tracing & Enrichment
+- [EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/9b8a98bb1e46f7c4581b5f5caf733b1f7cc3b445
 
 ### [MEMBER_C_NAME]
 - [TASKS_COMPLETED]: 
