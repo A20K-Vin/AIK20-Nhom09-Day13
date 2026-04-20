@@ -17,3 +17,21 @@ alerts:
     type: symptom-based
     owner: finops-owner
     runbook: docs/alerts.md#3-cost-budget-spike
+  - name: slo_breach_latency_p95
+    severity: P2
+    condition: latency_p95_ms > 3000 for 30m
+    type: slo-based
+    owner: team-oncall
+    runbook: docs/alerts.md#4-slo-breach-latency-p95
+  - name: slo_breach_error_rate
+    severity: P1
+    condition: error_rate_pct > 2 for 5m
+    type: slo-based
+    owner: team-oncall
+    runbook: docs/alerts.md#5-slo-breach-error-rate
+  - name: slo_breach_daily_cost
+    severity: P2
+    condition: daily_cost_usd > 2.5 for 1h
+    type: slo-based
+    owner: finops-owner
+    runbook: docs/alerts.md#6-slo-breach-daily-cost
