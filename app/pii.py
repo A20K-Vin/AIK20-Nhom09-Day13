@@ -8,38 +8,32 @@ PII_PATTERNS: dict[str, str] = {
     "phone_vn": r"(?:\+84|0)[ \.-]?\d{3}[ \.-]?\d{3}[ \.-]?\d{3,4}", # Matches 090 123 4567, 090.123.4567, etc.
     "cccd": r"\b\d{12}\b",
     "credit_card": r"\b\d{4}[- ]?\d{4}[- ]?\d{4}[- ]?\d{4}\b",
-    # TODO: Add more patterns (e.g., Passport, Vietnamese address keywords)
 
-    # Passport Việt Nam:
-    # - \b: word boundary (tránh match dính ký tự khác)
-    # - [A-Z]: 1 chữ cái in hoa
-    # - \d{7}: 7 chữ số phía sau
-    # Ví dụ match: B1234567
+    "address": r"(?i)\b(?:số|ngõ|ngách|đường|thôn|xóm|xã|phường|quận|huyện|tỉnh|thành phố)\s+[^,.]+[^,.]+",
+
+    # Số tài khoản ngân hàng (Thường từ 9-15 chữ số tùy bank)
+    "bank_account": r"\b\d{9,16}\b",
+
+    # Mã số thuế (MST) cá nhân/doanh nghiệp: 10 số hoặc 13 số (nếu có chi nhánh)
+    "tax_id": r"\b\d{10}(?:-\d{3})?\b",
+    
+    # Ngày sinh (Dạng dd/mm/yyyy hoặc dd-mm-yyyy)
+    "dob": r"\b(?:\d{1,2}[/-]\d{1,2}[/-]\d{4})\b"
+
     "passport": r"\b[A-Z]\d{7}\b",
 
-    # Biển số xe Việt Nam:
-    # - \b: word boundary
-    # - \d{2}: mã tỉnh (VD: 30, 51,...)
-    # - [A-Z]{1,2}: series chữ cái (A, F, AB,...)
-    # - [- ]?: có thể có dấu '-' hoặc khoảng trắng
-    # - \d{3,4}: 3–4 chữ số đầu
-    # - [\.]?: có thể có dấu chấm phân cách
-    # - \d{2}: 2 chữ số cuối
-    # Ví dụ match:
-    #   51F-12345
-    #   30A-123.45
-    #   29AB 12345
     "license_plate": r"\b\d{2}[A-Z]{1,2}[- ]?\d{3,4}[\.]?\d{2}\b"
 }
 
 
+# Compile tất cả patterns một lần duy nhất để tăng tốc
+COMPILED_PATTERNS = {name: re.compile(pattern) for name, pattern in PII_PATTERNS.items()}
 
 def scrub_text(text: str) -> str:
     safe = text
-    for name, pattern in PII_PATTERNS.items():
-        safe = re.sub(pattern, f"[REDACTED_{name.upper()}]", safe)
+    for name, compiled_re in COMPILED_PATTERNS.items():
+        safe = compiled_re.sub(f"[REDACTED_{name.upper()}]", safe)
     return safe
-
 
 def summarize_text(text: str, max_len: int = 500) -> str:
     safe = scrub_text(text).strip().replace("\n", " ")
