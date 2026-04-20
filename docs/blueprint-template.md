@@ -36,7 +36,9 @@
 - \[TRACE_WATERFALL_EXPLANATION]: (Briefly explain one interesting span in your trace)
 
 ### 3.2 Dashboard & SLOs
-- \[DASHBOARD_6_PANELS_SCREENSHOT]: [Path to image]
+- \[DASHBOARD_6_PANELS_SCREENSHOT]: 
+screenshot\EVIDENCE_DASHBOARD.png
+screenshot\EVIDENCE_TEST_10_REQUEST.png
 - \[SLO_TABLE]:
 | SLI | Target | Window | Current Value |
 |---|---:|---|---:|
@@ -79,15 +81,12 @@
 - \[TASKS_COMPLETED]: Logging & PII
 - \[EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/495c7a580189fa6e1ff301040327ec3395e47f48 
 
-<<<<<<< HEAD
 ### Nguyen Thuy Linh
 - [TASKS_COMPLETED]: Tracing & Enrichment
 - [EVIDENCE_LINK]: https://github.com/A20K-Vin/AIK20-Nhom09-Day13/commit/9b8a98bb1e46f7c4581b5f5caf733b1f7cc3b445
-=======
 ### [MEMBER_B_NAME]
 - \[TASKS_COMPLETED]: 
 - \[EVIDENCE_LINK]: 
->>>>>>> c2f0b43f598250cf190c7fb99ced72279cb9fcfb
 
 ### [MEMBER_C_NAME]
 - \[TASKS_COMPLETED]: 
